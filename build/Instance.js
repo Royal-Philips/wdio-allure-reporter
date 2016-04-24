@@ -325,9 +325,9 @@ var Instance = (function () {
                 return;
             }
 
-            var status = test.result.status,
+            var status = test.result.status || 'broken',
                 err = test.result.err,
-                time = test.result.time;
+                time = test.result.time || this._getTime();
 
             this._queue(function () {
                 if (status === 'passed') {
