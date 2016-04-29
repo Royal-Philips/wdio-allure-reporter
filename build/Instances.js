@@ -14,13 +14,13 @@ Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
-var _utilsValidateData = require('./utils/validateData');
+var _utilsValidate = require('./utils/validate');
 
-var _utilsValidateData2 = _interopRequireDefault(_utilsValidateData);
+var _utilsValidate2 = _interopRequireDefault(_utilsValidate);
 
-var _Instance = require('./Instance');
+var _instance = require('./instance');
 
-var _Instance2 = _interopRequireDefault(_Instance);
+var _instance2 = _interopRequireDefault(_instance);
 
 /**
  * Keeping track of parallelized instances
@@ -42,8 +42,8 @@ var Instances = (function () {
         key: 'createInstance',
         value: function createInstance(data) {
 
-            (0, _utilsValidateData2['default'])(data);
-            var instance = new _Instance2['default'](data, this.options);
+            (0, _utilsValidate2['default'])(data);
+            var instance = new _instance2['default'](data, this.options);
             this.instances[data.specs[0]] = instance;
             return instance;
         }
@@ -51,7 +51,7 @@ var Instances = (function () {
         key: 'getInstance',
         value: function getInstance(data) {
 
-            (0, _utilsValidateData2['default'])(data);
+            (0, _utilsValidate2['default'])(data);
             return this.instances[data.specs[0]] || this.createInstance(data);
         }
     }, {
@@ -68,7 +68,7 @@ var Instances = (function () {
         value: function _mirrorInstanceInterface() {
             var _this2 = this;
 
-            var properties = _Object$getOwnPropertyNames(_Instance2['default'].prototype).filter(function (propertyName) {
+            var properties = _Object$getOwnPropertyNames(_instance2['default'].prototype).filter(function (propertyName) {
 
                 // no pseudo-private functions
                 if (propertyName.indexOf('_') === 0) {

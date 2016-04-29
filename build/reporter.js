@@ -28,9 +28,9 @@ var _allureJsCommonsRuntime = require('allure-js-commons/runtime');
 
 var _allureJsCommonsRuntime2 = _interopRequireDefault(_allureJsCommonsRuntime);
 
-var _Instances = require('./Instances');
+var _instances = require('./instances');
 
-var _Instances2 = _interopRequireDefault(_Instances);
+var _instances2 = _interopRequireDefault(_instances);
 
 /**
  * Initialize a new `Allure` test reporter.
@@ -66,7 +66,7 @@ var AllureReporter = (function (_events$EventEmitter) {
             targetDir: this.outputDir
         });
 
-        this.instances = new _Instances2['default']({
+        this.instances = new _instances2['default']({
             allure: this.allure,
             runtime: this.runtime,
             verbose: this.options.verbose

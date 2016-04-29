@@ -14,9 +14,9 @@ var _path = require('path');
 
 var _path2 = _interopRequireDefault(_path);
 
-var _utilsValidateData = require('./utils/validateData');
+var _utilsValidate = require('./utils/validate');
 
-var _utilsValidateData2 = _interopRequireDefault(_utilsValidateData);
+var _utilsValidate2 = _interopRequireDefault(_utilsValidate);
 
 /**
  * Stack of one instance unit
@@ -26,7 +26,7 @@ var Instance = (function () {
     function Instance(data, options) {
         _classCallCheck(this, Instance);
 
-        (0, _utilsValidateData2['default'])(data);
+        (0, _utilsValidate2['default'])(data);
         this.instanceIdentifier = data.specs[0];
         this.options = options;
         this.allure = this.options.allure;
@@ -277,8 +277,8 @@ var Instance = (function () {
                 if (parentKind === 'test') {
                     this._endCase('test');
                 } else if (parentKind !== 'suite') {
-                    // virtual case already started
-                    return;
+                    // a virtual case already started
+                    this._endCase('virtual');
                 }
             }
 
