@@ -220,6 +220,23 @@ var Instance = (function () {
             }
         }
     }, {
+        key: 'endTest',
+        value: function endTest(test) {
+
+            if (test.pending) {
+
+                this._getStackTop().result = {
+                    status: 'pending',
+                    err: {
+                        message: 'canceled'
+                    },
+                    time: this._getTime()
+                };
+
+                this._endCase('test');
+            }
+        }
+    }, {
         key: 'startHook',
         value: function startHook(hook) {
             this._endHook();

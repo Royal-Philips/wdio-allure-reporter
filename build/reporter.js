@@ -94,6 +94,10 @@ var AllureReporter = (function (_events$EventEmitter) {
             _this.instances.startTest(test);
         });
 
+        this.on('test:end', function (test) {
+            _this.instances.endTest(test);
+        });
+
         this.on('test:pass', function (test) {
             _this.instances.passTest(test);
         });
