@@ -124,7 +124,7 @@ var Instance = (function () {
             var _this2 = this;
 
             // when there is an pending case, end it
-            this._endCase();
+            this._endCase(null, true);
 
             var title = undefined;
             var suite = this._popStack('suite');
@@ -157,7 +157,7 @@ var Instance = (function () {
         value: function startTest(test) {
 
             // end any open case
-            this._endCase();
+            this._endCase(null, true);
 
             var title = this._getTitle(test.title);
             this._print('test:start', title);
@@ -257,9 +257,9 @@ var Instance = (function () {
                 return;
             }
 
-            if (topStackItem.kind === 'virtual') {
-                this._endCase('virtual');
-            }
+            // if(topStackItem.kind === 'virtual') {
+            this._endCase('virtual');
+            // }
         }
     }, {
         key: 'screenshot',
@@ -292,10 +292,10 @@ var Instance = (function () {
             if (this.stack.length >= 2) {
                 var parentKind = this.stack[this.stack.length - 2].kind;
                 if (parentKind === 'test') {
-                    this._endCase('test');
+                    this._endCase('test', true);
                 } else if (parentKind !== 'suite') {
                     // a virtual case already started
-                    this._endCase('virtual');
+                    this._endCase('virtual', true);
                 }
             }
 
@@ -326,7 +326,7 @@ var Instance = (function () {
         }
     }, {
         key: '_endCase',
-        value: function _endCase(type) {
+        value: function _endCase(type, force) {
             var _this4 = this;
 
             type = type || ['test', 'virtual'];
@@ -339,7 +339,15 @@ var Instance = (function () {
             }
 
             if (!test.result) {
-                return;
+                if (force) {
+                    test.result = {
+                        status: 'broken',
+                        err: 'Test did not finish.',
+                        time: this._getTime()
+                    };
+                } else {
+                    return;
+                }
             }
 
             var status = test.result.status || 'broken',
